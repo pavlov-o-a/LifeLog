@@ -1,6 +1,7 @@
 # LifeLog app
 
-Flutter project
+Flutter project.
+
 Application to write logs of your life. Diary if you wish.
 
 ## Features
