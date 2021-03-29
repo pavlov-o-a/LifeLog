@@ -3,7 +3,6 @@ import 'package:flutter_mixture/catalog/CatalogViewModel.dart';
 import 'package:flutter_mixture/catalog/CatalogViewModelImpl.dart';
 import 'package:flutter_mixture/common/entities/Entry.dart';
 import 'package:flutter_mixture/entry/entities/StatefulEntry.dart';
-import 'package:flutter_mixture/entry/ui/EntryScreen.dart';
 import 'package:flutter_mixture/settings/SettingsScreen.dart';
 import 'package:provider/provider.dart';
 
@@ -33,10 +32,10 @@ class CatalogScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return EntryScreen(StatefulEntry.withState(
-                Entry("New entry"), EntryState.CHANGING));
-          }));
+          Navigator.pushNamed(context, '/entry', arguments: {
+            'entry_extra':
+                StatefulEntry.withState(Entry("New entry"), EntryState.CHANGING)
+          });
         },
       ),
     );
@@ -80,9 +79,8 @@ class ListState extends State<StatefulWidget> {
       return TextButton(
         child: Text(entries[int].entry.title),
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return EntryScreen(entries[int]);
-          }));
+          Navigator.pushNamed(context, '/entry',
+              arguments: {'entry_extra': entries[int]});
         },
       );
     };

@@ -5,12 +5,11 @@ import 'package:flutter_mixture/entry/ui/Viewer.dart';
 import 'package:provider/provider.dart';
 
 class EntryScreen extends StatelessWidget {
-  final StatefulEntry entry;
-
-  EntryScreen(this.entry);
 
   @override
   Widget build(BuildContext context) {
+    StatefulEntry entry =
+        (ModalRoute.of(context).settings.arguments as Map)['entry_extra'];
     return ChangeNotifierProvider<StatefulEntry>.value(
         value: entry,
         child: Consumer<StatefulEntry>(
