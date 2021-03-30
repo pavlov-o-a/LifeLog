@@ -1,8 +1,8 @@
 class Entry {
-  int id;
-  String date;
-  String title;
-  String content;
+  int id = 0;
+  String date = "";
+  String title = "";
+  String content = "";
 
   Entry(this.title);
 }

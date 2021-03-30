@@ -9,7 +9,7 @@ class EntryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     StatefulEntry entry =
-        (ModalRoute.of(context).settings.arguments as Map)['entry_extra'];
+        (ModalRoute.of(context)?.settings.arguments as Map)['entry_extra'];
     return ChangeNotifierProvider<StatefulEntry>.value(
         value: entry,
         child: Consumer<StatefulEntry>(

@@ -50,27 +50,65 @@ class CatalogBody extends StatefulWidget {
 }
 
 class ListState extends State<StatefulWidget> {
-  CatalogViewModel viewModel;
+  CatalogViewModel? viewModel;
+  String? error;
+  var showLoading = true;
+  var entriesList = List<StatefulEntry>.empty();
 
   @override
   void initState() {
     super.initState();
-    viewModel = Provider.of<CatalogViewModel>(context, listen: false);
+    var viewModel = Provider.of<CatalogViewModel>(context, listen: false);
+    this.viewModel = viewModel;
     viewModel.loadEntries();
+    viewModel.getError().listen((event) {
+      setState(() {
+        error = event;
+      });
+    });
+    print("stream init");
+    viewModel.isLoading().listen((event) {
+      setState(() {
+        print("stream collected");
+        showLoading = event;
+      });
+    });
+    viewModel.getEntries().listen((event) {
+      setState(() {
+        entriesList = event;
+      });
+    });
+    setState(() {
+      entriesList = viewModel.getBufferedEntries();
+      error = viewModel.getBufferedError();
+      showLoading = viewModel.getBufferedLoading();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      builder: (context, data) {
-        List<StatefulEntry> entries = data.data;
-        return ListView.builder(
-          itemBuilder: getEntryWidgetBuilder(context, entries),
-          itemCount: entries.length,
-        );
-      },
-      stream: viewModel.getEntries(),
-      initialData: List<StatefulEntry>.empty(),
+    return Stack(
+      children: [
+        ListView.builder(
+          itemBuilder: getEntryWidgetBuilder(context, entriesList),
+          itemCount: entriesList.length,
+        ),
+        Builder(builder: (context) {
+          return showLoading == true
+              ? Container(
+                  child: CircularProgressIndicator(),
+                  alignment: Alignment.center,
+                )
+              : SizedBox.shrink();
+        }),
+        Builder(builder: (context) {
+          return error?.isNotEmpty == true
+              ? Container(
+                  child: Text(error!),
+                )
+              : SizedBox.shrink();
+        }),
+      ],
     );
   }
 
@@ -89,7 +127,7 @@ class ListState extends State<StatefulWidget> {
   @override
   void dispose() {
     super.dispose();
-    viewModel.dispose();
+    viewModel?.dispose();
   }
 }
 

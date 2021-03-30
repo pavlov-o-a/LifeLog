@@ -7,10 +7,7 @@ class StatefulEntry extends ChangeNotifier {
 
   StatefulEntry(this.entry);
 
-  StatefulEntry.withState(entry, state) {
-    this.entry = entry;
-    this.state = state;
-  }
+  StatefulEntry.withState(this.entry, this.state);
 
   setState(state) {
     this.state = state;

@@ -5,5 +5,15 @@ abstract class CatalogViewModel {
 
   Stream<List<StatefulEntry>> getEntries();
 
+  Stream<bool> isLoading();
+
+  Stream<String?> getError();
+
+  List<StatefulEntry> getBufferedEntries();
+
+  bool getBufferedLoading();
+
+  String? getBufferedError();
+
   dispose();
 }
