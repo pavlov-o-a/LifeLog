@@ -78,11 +78,6 @@ class ListState extends State<StatefulWidget> {
         entriesList = event;
       });
     });
-    setState(() {
-      entriesList = viewModel.getBufferedEntries();
-      error = viewModel.getBufferedError();
-      showLoading = viewModel.getBufferedLoading();
-    });
   }
 
   @override

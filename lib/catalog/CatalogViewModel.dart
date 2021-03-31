@@ -9,11 +9,5 @@ abstract class CatalogViewModel {
 
   Stream<String?> getError();
 
-  List<StatefulEntry> getBufferedEntries();
-
-  bool getBufferedLoading();
-
-  String? getBufferedError();
-
   dispose();
 }
