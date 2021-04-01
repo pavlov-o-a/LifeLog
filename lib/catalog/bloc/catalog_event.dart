@@ -1,3 +1,5 @@
 abstract class CatalogEvent {}
 
-class CatalogEventLoading extends CatalogEvent {}
+class CatalogEventLoad extends CatalogEvent {}
+
+class CatalogEventReload extends CatalogEvent {}

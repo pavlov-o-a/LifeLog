@@ -57,12 +57,22 @@ class CatalogBody extends StatelessWidget {
           );
         } else if (state is CatalogStateError) {
           return Container(
-            child: Text(state.error),
+            child: Column(
+              children: [
+                Text(state.error),
+                TextButton(
+                    onPressed: () {
+                      context.read<CatalogBlock>().add(CatalogEventReload());
+                    },
+                    child: Text("Try again"))
+              ],
+              mainAxisSize: MainAxisSize.min,
+            ),
             alignment: Alignment.center,
           );
         } else {
           if (state is CatalogStateOpen) {
-            context.read<CatalogBlock>().add(CatalogEventLoading());
+            context.read<CatalogBlock>().add(CatalogEventLoad());
           }
           return Container(
             child: CircularProgressIndicator(),

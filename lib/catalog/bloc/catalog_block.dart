@@ -10,19 +10,18 @@ class CatalogBlock extends Bloc<CatalogEvent, CatalogState> {
 
   @override
   Stream<CatalogState> mapEventToState(CatalogEvent event) async* {
-    if (event is CatalogEventLoading)
+    if (event is CatalogEventLoad)
       yield await loadData();
-    else
+    else if (event is CatalogEventReload) {
+      yield CatalogStateLoading();
+      yield await loadData();
+    } else
       yield CatalogStateEmpty();
   }
 
   Future<CatalogState> loadData() {
-    try {
-      return entriesProvider!
-          .getEntries()
-          .then((value) => Future.value(CatalogStateData(value)));
-    } catch (exc) {
-      return Future.value(CatalogStateError(exc.toString()));
-    }
+    return entriesProvider!.getEntries().then(
+        (value) => Future.value(CatalogStateData(value)),
+        onError: (error) => Future.value(CatalogStateError(error.toString())));
   }
 }

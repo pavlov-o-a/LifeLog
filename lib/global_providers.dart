@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'catalog/repository/catalog_entries_provider.dart';
-import 'catalog/repository/catalog_entries_provider_impl.dart';
+import 'package:flutter_mixture/catalog/repository/catalog_entries_provider.dart';
+import 'package:flutter_mixture/catalog/repository/catalog_entries_provider_impl.dart';
 
 List<RepositoryProvider> globalProviders() {
   return [
