@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mixture/entry/entities/stateful_entry.dart';
+import 'package:flutter_mixture/entry/block/entry_block.dart';
+import 'package:flutter_mixture/entry/block/entry_event.dart';
 import 'package:provider/provider.dart';
 
 class Redactor extends StatefulWidget {
@@ -17,9 +18,7 @@ class RedactorState extends State<StatefulWidget> {
           actions: [
             TextButton(
                 onPressed: () {
-                  var entry =
-                      Provider.of<StatefulEntry>(context, listen: false);
-                  entry.setState(EntryState.SHOWING);
+                  context.read<EntryBlock>().add(EntryEventSave());
                 },
                 child: Text(
                   "save",

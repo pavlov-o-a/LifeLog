@@ -5,7 +5,6 @@ import 'package:flutter_mixture/catalog/bloc/catalog_event.dart';
 import 'package:flutter_mixture/catalog/bloc/catalog_state.dart';
 import 'package:flutter_mixture/catalog/repository/catalog_entries_provider.dart';
 import 'package:flutter_mixture/common/entities/entry.dart';
-import 'package:flutter_mixture/entry/entities/stateful_entry.dart';
 import 'package:flutter_mixture/settings/settings_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -35,9 +34,7 @@ class CatalogScreen extends StatelessWidget {
           child: Icon(Icons.add),
           onPressed: () {
             Navigator.pushNamed(context, '/entry', arguments: {
-              'entry_extra': StatefulEntry.withState(
-                  Entry("New entry"), EntryState.CHANGING)
-            });
+              'entry_extra': Entry("New entry")});
           },
         ),
       ),
@@ -89,7 +86,7 @@ class CatalogBody extends StatelessWidget {
         child: Text(entries[int].title),
         onPressed: () {
           Navigator.pushNamed(context, '/entry',
-              arguments: {'entry_extra': StatefulEntry(entries[int])});
+              arguments: {'entry_extra': entries[int]});
         },
       );
     };
