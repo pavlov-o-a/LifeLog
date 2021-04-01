@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mixture/entry/entities/StatefulEntry.dart';
+import 'package:flutter_mixture/entry/entities/stateful_entry.dart';
 import 'package:provider/provider.dart';
 
 class Redactor extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mixture/common/entities/Entry.dart';
+import 'package:flutter_mixture/common/entities/entry.dart';
 
 class StatefulEntry extends ChangeNotifier {
   Entry entry;

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mixture/entry/entities/StatefulEntry.dart';
-import 'package:flutter_mixture/entry/ui/Redactor.dart';
-import 'package:flutter_mixture/entry/ui/Viewer.dart';
+import 'package:flutter_mixture/entry/entities/stateful_entry.dart';
+import 'package:flutter_mixture/entry/ui/redactor.dart';
+import 'package:flutter_mixture/entry/ui/viewer.dart';
 import 'package:provider/provider.dart';
 
 class EntryScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     StatefulEntry entry =
