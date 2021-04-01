@@ -1,9 +1,10 @@
 # LifeLog app
 
-Flutter project.
-
+Flutter project.  
 Application to write logs of your life. Diary if you wish.
 
 ## Features
 
-MVVM + provider
+* BLoC pattern for separation ui and logic
+* Provider for DI
+* null safety
