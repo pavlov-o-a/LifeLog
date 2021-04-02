@@ -67,7 +67,7 @@ class Redactor extends StatelessWidget {
   }
 
   savePressed(EntryBlock bloc, Entry entry) {
-    bloc.add(EntryEventCreate(entry));
+    bloc.add(EntryEventSave(entry));
   }
 
   titleChanged(String value, Entry entry) {

@@ -25,6 +25,7 @@ class EntriesDatabaseImpl implements EntriesDatabase {
     var id = storage.keys.reduce(max) + 1;
     entry.id = id;
     storage.update(id, (value) => entry, ifAbsent: () => entry);
+    updates.add("");
     return entry;
   }
 

@@ -12,10 +12,4 @@ class EntryEventSave extends EntryEvent {
   EntryEventSave(this.modified);
 }
 
-class EntryEventCreate extends EntryEvent {
-  Entry created;
-
-  EntryEventCreate(this.created);
-}
-
 class EntryEventShow extends EntryEvent {}

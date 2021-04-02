@@ -25,9 +25,9 @@ class EntryBlock extends Bloc<EntryEvent, EntryState> {
       } else
         yield EntryStateShow(entry);
     } else {
-      if (event is EntryEventCreate) {
+      if (event is EntryEventSave) {
         try {
-          var created = entryProvider.create(event.created);
+          var created = entryProvider.create(event.modified);
           yield EntryStateEditSuccess(created);
         } catch (exc) {
           yield EntryStateLoading();
