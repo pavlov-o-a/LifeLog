@@ -11,16 +11,15 @@ import 'package:provider/provider.dart';
 class CatalogScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return BlocProvider<CatalogBlock>(
       create: (context) => CatalogBlock(context.read<CatalogEntriesProvider>()),
       child: Scaffold(
         appBar: AppBar(
           actions: [
-            TextButton(
-              child: Text(
-                "settings",
-                style: TextStyle(color: Colors.black),
-              ),
+            ReloadButton(),
+            //todo move settings out of catalog
+            IconButton(
+              icon: Icon(Icons.settings),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return SettingsScreen();
@@ -34,11 +33,23 @@ class CatalogScreen extends StatelessWidget {
           child: Icon(Icons.add),
           onPressed: () {
             Navigator.pushNamed(context, '/entry', arguments: {
-              'entry_extra': Entry("New entry")});
+              'entry_extra': -1,
+            });
           },
         ),
       ),
     );
+  }
+}
+
+class ReloadButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        icon: Icon(Icons.sync),
+        onPressed: () {
+          context.read<CatalogBlock>().add(CatalogEventReload());
+        });
   }
 }
 
@@ -86,7 +97,7 @@ class CatalogBody extends StatelessWidget {
         child: Text(entries[int].title),
         onPressed: () {
           Navigator.pushNamed(context, '/entry',
-              arguments: {'entry_extra': entries[int]});
+              arguments: {'entry_extra': entries[int].id});
         },
       );
     };
