@@ -1,4 +1,5 @@
 import 'package:flutter_mixture/common/entities/entry.dart';
+import 'package:flutter_mixture/common/entities/update_event.dart';
 
 abstract class EntriesDatabase {
   Entry create(Entry entry);
@@ -11,5 +12,5 @@ abstract class EntriesDatabase {
 
   List<Entry> readAll();
 
-  Stream<Object> listenUpdates();
+  Stream<UpdateEvent> listenUpdates();
 }

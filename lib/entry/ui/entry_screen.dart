@@ -16,17 +16,22 @@ class EntryScreen extends StatelessWidget {
       create: (context) => EntryBlock(entryId, context.read<EntryProvider>()),
       child: BlocBuilder<EntryBlock, EntryState>(
         builder: (context, state) {
-          if (state is EntryStateShow)
-            return Viewer(state.entry);
-          else if (state is EntryStateEditSuccess)
-            return Viewer(state.entry);
-          else if (state is EntryStateEditing)
-            return Redactor(state.entry);
-          else if (state is EntryStateLoading) {
-            context.read<EntryBlock>().add(EntryEventLoad());
-            return EntryLoading();
-          } else
-            return EntryNotFound();
+          switch (state.getName()) {
+            case entryStateShow:
+              state as EntryStateShow;
+              return Viewer(state.entry);
+            case entryStateEditSuccess:
+              state as EntryStateEditSuccess;
+              return Viewer(state.entry);
+            case entryStateEditing:
+              state as EntryStateEditing;
+              return Redactor(state.entry);
+            case entryStateLoading:
+              context.read<EntryBlock>().add(EntryEventLoad());
+              return EntryLoading();
+            default:
+              return EntryNotFound();
+          }
         },
       ),
     );

@@ -13,28 +13,36 @@ class EntryBlock extends Bloc<EntryEvent, EntryState> {
   @override
   Stream<EntryState> mapEventToState(EntryEvent event) async* {
     var entry = entryProvider.read(entryId);
-    if (entry != null) {
-      if (event is EntryEventEdit)
-        yield EntryStateEditing(entry);
-      else if (event is EntryEventSave) {
-        try {
-          entryProvider.save(event.modified);
-        } catch (exc) {}
-        ;
-        yield EntryStateEditSuccess(event.modified);
-      } else
-        yield EntryStateShow(entry);
-    } else {
-      if (event is EntryEventSave) {
-        try {
-          var created = entryProvider.create(event.modified);
-          yield EntryStateEditSuccess(created);
-        } catch (exc) {
-          yield EntryStateLoading();
+    switch (event.getName()) {
+      case entryEventEdit:
+        if (entry != null) {
+          yield EntryStateEditing(entry);
+          break;
+        } else
+          continue save;
+      save:
+      case entryEventSave:
+        event as EntryEventSave;
+        if (entry != null) {
+          try {
+            entryProvider.save(event.modified);
+          } catch (exc) {}
+          yield EntryStateEditSuccess(event.modified);
+        } else {
+          try {
+            var created = entryProvider.create(event.modified);
+            yield EntryStateEditSuccess(created);
+          } catch (exc) {
+            yield EntryStateLoading();
+          }
         }
-      } else {
-        yield EntryStateEditing(Entry());
-      }
+        break;
+      default:
+        if (entry != null) {
+          yield EntryStateShow(entry);
+        } else {
+          yield EntryStateEditing(Entry());
+        }
     }
   }
 }

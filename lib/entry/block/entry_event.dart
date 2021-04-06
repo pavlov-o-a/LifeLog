@@ -1,15 +1,37 @@
 import 'package:flutter_mixture/common/entities/entry.dart';
 
-abstract class EntryEvent {}
+abstract class EntryEvent {
+  String getName();
+}
 
-class EntryEventLoad extends EntryEvent {}
+const String entryEventLoad = "entryEventLoad";
 
-class EntryEventEdit extends EntryEvent {}
+class EntryEventLoad extends EntryEvent {
+  @override
+  String getName() => entryEventLoad;
+}
+
+const String entryEventEdit = "entryEventEdit";
+
+class EntryEventEdit extends EntryEvent {
+  @override
+  String getName() => entryEventEdit;
+}
+
+const String entryEventSave = "entryEventSave";
 
 class EntryEventSave extends EntryEvent {
   Entry modified;
 
   EntryEventSave(this.modified);
+
+  @override
+  String getName() => entryEventSave;
 }
 
-class EntryEventShow extends EntryEvent {}
+const String entryEventShow = "entryEventShow";
+
+class EntryEventShow extends EntryEvent {
+  @override
+  String getName() => entryEventShow;
+}

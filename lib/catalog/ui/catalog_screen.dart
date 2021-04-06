@@ -58,34 +58,37 @@ class CatalogBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CatalogBlock, CatalogState>(
       builder: (context, state) {
-        if (state is CatalogStateData) {
-          return ListView.builder(
-            itemBuilder: getEntryWidgetBuilder(context, state.data),
-            itemCount: state.data.length,
-          );
-        } else if (state is CatalogStateError) {
-          return Container(
-            child: Column(
-              children: [
-                Text(state.error),
-                TextButton(
-                    onPressed: () {
-                      context.read<CatalogBlock>().add(CatalogEventReload());
-                    },
-                    child: Text("Try again"))
-              ],
-              mainAxisSize: MainAxisSize.min,
-            ),
-            alignment: Alignment.center,
-          );
-        } else {
-          if (state is CatalogStateOpen) {
-            context.read<CatalogBlock>().add(CatalogEventLoad());
-          }
-          return Container(
-            child: CircularProgressIndicator(),
-            alignment: Alignment.center,
-          );
+        switch (state.getName()) {
+          case catalogStateData:
+            state as CatalogStateData;
+            return ListView.builder(
+              itemBuilder: getEntryWidgetBuilder(context, state.data),
+              itemCount: state.data.length,
+            );
+          case catalogStateError:
+            state as CatalogStateError;
+            return Container(
+              child: Column(
+                children: [
+                  Text(state.error),
+                  TextButton(
+                      onPressed: () {
+                        context.read<CatalogBlock>().add(CatalogEventReload());
+                      },
+                      child: Text("Try again"))
+                ],
+                mainAxisSize: MainAxisSize.min,
+              ),
+              alignment: Alignment.center,
+            );
+          default:
+            if (state is CatalogStateOpen) {
+              context.read<CatalogBlock>().add(CatalogEventLoad());
+            }
+            return Container(
+              child: CircularProgressIndicator(),
+              alignment: Alignment.center,
+            );
         }
       },
     );

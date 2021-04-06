@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter_mixture/common/entities/entry.dart';
+import 'package:flutter_mixture/common/entities/update_event.dart';
 import 'package:flutter_mixture/database/entries/entries_database.dart';
 
 class EntriesDatabaseImpl implements EntriesDatabase {
@@ -10,7 +11,7 @@ class EntriesDatabaseImpl implements EntriesDatabase {
     Entry(id: 1, title: "first steps", content: "Created app project"),
     Entry(id: 2, title: "testing", content: "Added few entries"),
   ];
-  final StreamController<Object> updates = StreamController.broadcast();
+  final StreamController<UpdateEvent> updates = StreamController.broadcast();
 
   late Map<int, Entry> storage;
 
@@ -25,14 +26,14 @@ class EntriesDatabaseImpl implements EntriesDatabase {
     var id = storage.keys.reduce(max) + 1;
     entry.id = id;
     storage.update(id, (value) => entry, ifAbsent: () => entry);
-    updates.add("");
+    updates.add(UpdateEvent());
     return entry;
   }
 
   @override
   delete(Entry entry) {
     storage.remove(entry.id);
-    updates.add("");
+    updates.add(UpdateEvent());
   }
 
   @override
@@ -41,7 +42,7 @@ class EntriesDatabaseImpl implements EntriesDatabase {
   @override
   Entry update(Entry entry) {
     storage.update(entry.id, (value) => entry);
-    updates.add("");
+    updates.add(UpdateEvent());
     return entry;
   }
 
@@ -49,7 +50,7 @@ class EntriesDatabaseImpl implements EntriesDatabase {
   List<Entry> readAll() => storage.values.toList();
 
   @override
-  Stream<Object> listenUpdates() => updates.stream;
+  Stream<UpdateEvent> listenUpdates() => updates.stream;
 
   dispose() {
     updates.close();

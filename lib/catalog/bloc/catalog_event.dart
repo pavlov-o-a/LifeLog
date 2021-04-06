@@ -1,5 +1,17 @@
-abstract class CatalogEvent {}
+abstract class CatalogEvent {
+  String getName();
+}
 
-class CatalogEventLoad extends CatalogEvent {}
+const String catalogEventLoad = "catalogEventLoad";
 
-class CatalogEventReload extends CatalogEvent {}
+class CatalogEventLoad extends CatalogEvent {
+  @override
+  String getName() => catalogEventLoad;
+}
+
+const String catalogEventReload = "catalogEventReload";
+
+class CatalogEventReload extends CatalogEvent {
+  @override
+  String getName() => catalogEventReload;
+}

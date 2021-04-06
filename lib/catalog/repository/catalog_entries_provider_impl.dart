@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter_mixture/catalog/repository/catalog_entries_provider.dart';
 import 'package:flutter_mixture/common/entities/entry.dart';
+import 'package:flutter_mixture/common/entities/update_event.dart';
 import 'package:flutter_mixture/database/entries/entries_database.dart';
 
 class CatalogEntriesProviderImpl implements CatalogEntriesProvider {
@@ -20,5 +21,5 @@ class CatalogEntriesProviderImpl implements CatalogEntriesProvider {
   }
 
   @override
-  Stream<Object> listenUpdates() => database.listenUpdates();
+  Stream<UpdateEvent> listenUpdates() => database.listenUpdates();
 }
