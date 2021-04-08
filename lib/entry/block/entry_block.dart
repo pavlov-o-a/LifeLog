@@ -30,6 +30,8 @@ class EntryBlock extends Bloc<EntryEvent, EntryState> {
           yield EntryStateEditSuccess(event.modified);
         } else {
           try {
+            event.modified.created = DateTime.now().millisecondsSinceEpoch;
+            event.modified.modified = event.modified.created;
             var created = entryProvider.create(event.modified);
             yield EntryStateEditSuccess(created);
           } catch (exc) {

@@ -27,6 +27,9 @@ dependencies:
   rxdart: ^0.26.0
   flutter_bloc: ^7.0.0
   cupertino_icons: ^1.0.2
+  googleapis_auth: ^1.1.0
+  googleapis: ^2.0.0
+  webview_flutter: ^2.0.3
 
 dev_dependencies:
   flutter_test:

@@ -96,12 +96,34 @@ class CatalogBody extends StatelessWidget {
 
   IndexedWidgetBuilder getEntryWidgetBuilder(context, List<Entry> entries) {
     return (context, int) {
-      return TextButton(
-        child: Text(entries[int].title),
-        onPressed: () {
-          Navigator.pushNamed(context, '/entry',
-              arguments: {'entry_extra': entries[int].id});
-        },
+      var title = entries[int].title;
+      var date = DateTime.fromMillisecondsSinceEpoch(entries[int].created);
+      var created = "${date.day}.${date.month}.${date.year}";
+      return Container(
+        child: TextButton(
+          child: Column(
+            children: [
+              Container(
+                child: Text(
+                  title,
+                  style: TextStyle(fontSize: 20),
+                ),
+                width: double.infinity,
+              ),
+              Text(
+                created,
+                style: TextStyle(fontSize: 10, color: Colors.black38),
+              ),
+            ],
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, '/entry',
+                arguments: {'entry_extra': entries[int].id});
+          },
+        ),
+        alignment: Alignment.centerLeft,
       );
     };
   }
